@@ -19,6 +19,8 @@ class LoginController extends Controller
    }
 
    public function store(Request $request){
+
+   // dd($request->remember);
     $this->validate($request, [
       
   
@@ -27,7 +29,7 @@ class LoginController extends Controller
     ]
  );
 
- if(!auth()->attempt($request->only('email', 'password')))
+ if(!auth()->attempt($request->only('email', 'password'), $request->remember))
  {
      return back()->with('status', 'Invalid login details');
  }

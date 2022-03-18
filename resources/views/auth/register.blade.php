@@ -5,8 +5,7 @@
     <div class="w-4/12 bg-white p-6 rounded-lg">
        
     <form action="{{route('register')}}" method="post">
-        
-    
+
     @csrf
     <div class="mb-4">
             <label for="name" class="sr-only">Name</label>
