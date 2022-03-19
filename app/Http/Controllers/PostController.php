@@ -10,8 +10,10 @@ class PostController extends Controller
     {
        // $posts = Post::get(); //all
 
-       $posts = Post::paginate(2);
-        return view('posts.index', [
+       //$posts = Post::orderBy('created_at', 'desc')->with(['user','likes'])->paginate(2);
+       $posts = Post::latest()->with(['user','likes'])->paginate(2);
+
+       return view('posts.index', [
             'posts' => $posts
 
         ]);
@@ -30,5 +32,12 @@ class PostController extends Controller
         //another way of doing the above
         //$request->user()->posts()->create($request->only('body'));
        
+    }
+
+    public function destroy(Post $post){
+       
+        $this->authorize('delete', $post);
+        $post->delete();
+        return back();
     }
 }
