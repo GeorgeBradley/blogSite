@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 class PostController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware(['auth'])->only('store', 'destroy');
+    }
     public function index()
     {
        // $posts = Post::get(); //all
@@ -19,6 +23,12 @@ class PostController extends Controller
         ]);
     }
 
+
+    public function show(Post $post){
+        return view('posts.show',[
+            'post' => $post
+        ]);
+    }
     public function store(Request $request){
         $this->validate($request, [
             'body' => 'required'
